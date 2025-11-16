@@ -31,8 +31,7 @@ public int Id { get; set; }
 
 
         
-[DataType(DataType.Date)]
-[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
-public DateTime BookingDate { get; set; }
+public DateTime? BookingDate { get; set; }
+
     }
 }

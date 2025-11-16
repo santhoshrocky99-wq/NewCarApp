@@ -36,48 +36,43 @@ namespace CarCleanz.Controllers
 [HttpPost]
 public IActionResult Create(Booking booking)
 {
+    ModelState.Remove("BookingDate");  // Remove validation for BookingDate
+
     if (!ModelState.IsValid)
+    {
         return View(booking);
-
-    try
-    {
-        // Generate next custom id
-        var lastBooking = _context.Bookings
-            .OrderByDescending(b => b.Id)
-            .FirstOrDefault();
-
-        int nextNumber = 3000;
-        if (lastBooking != null && !string.IsNullOrEmpty(lastBooking.CustomBookingId))
-        {
-            string numberPart = lastBooking.CustomBookingId.Replace("CCA", "");
-            nextNumber = int.Parse(numberPart) + 1;
-        }
-        booking.CustomBookingId = $"CCA{nextNumber}";
-
-        // Normalize date for Linux
-        booking.BookingDate = DateTime.SpecifyKind(booking.BookingDate, DateTimeKind.Utc);
-
-        // Price
-        switch ((booking.VehicleType ?? "").ToLower())
-        {
-            case "hatchback": booking.Price = 499; break;
-            case "sedan":     booking.Price = 650; break;
-            case "suv":       booking.Price = 750; break;
-            default:          booking.Price = 0;   break;
-        }
-
-        // Save
-        _context.Bookings.Add(booking);
-        _context.SaveChanges();
-
-        return RedirectToAction("Payment", new { id = booking.Id });
     }
-    catch (Exception ex)
+
+    booking.BookingDate = DateTime.UtcNow;  // Auto assign here
+
+    var lastBooking = _context.Bookings
+        .OrderByDescending(b => b.Id)
+        .FirstOrDefault();
+
+    int nextNumber = 3000;
+
+    if (lastBooking != null && !string.IsNullOrEmpty(lastBooking.CustomBookingId))
     {
-        // Show the full exception in the browser so we can see the exact failure
-        return Content("ERROR while saving:\n\n" + ex.ToString());
+        string numberPart = lastBooking.CustomBookingId.Replace("CCA", "");
+        nextNumber = int.Parse(numberPart) + 1;
     }
+
+    booking.CustomBookingId = $"CCA{nextNumber}";
+
+    switch ((booking.VehicleType ?? "").ToLower())
+    {
+        case "hatchback": booking.Price = 499; break;
+        case "sedan":     booking.Price = 650; break;
+        case "suv":       booking.Price = 750; break;
+        default:          booking.Price = 0;   break;
+    }
+
+    _context.Bookings.Add(booking);
+    _context.SaveChanges();
+
+    return RedirectToAction("Payment", new { id = booking.Id });
 }
+
 
 
     }
