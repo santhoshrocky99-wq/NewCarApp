@@ -32,7 +32,6 @@ namespace CarCleanz.Controllers
         }
 
         // ?? No antiforgery validation
-       [IgnoreAntiforgeryToken]
 [IgnoreAntiforgeryToken]
 [HttpPost]
 public IActionResult Create(Booking booking)
