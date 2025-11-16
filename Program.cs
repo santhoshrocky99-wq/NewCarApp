@@ -3,13 +3,16 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// MVC
 builder.Services.AddControllersWithViews();
 
+// Database
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
+// Error handling
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -19,9 +22,10 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// Disable antiforgery globally (correct version)
+// ?? DISABLE ANTIFORGERY COMPLETELY FOR RENDER
 app.Use((context, next) =>
 {
+    context.Features.Set<Microsoft.AspNetCore.Antiforgery.IAntiforgeryFeature>(null);
     context.Request.Headers.Remove("RequestVerificationToken");
     return next();
 });
