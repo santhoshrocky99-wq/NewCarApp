@@ -5,9 +5,10 @@ namespace CarCleanz.Models
 {
     public class Booking
     {
-[Key]
-public int Id { get; set; }
-        public string CustomBookingId { get; set; }
+        [Key]
+        public int Id { get; set; }
+
+        public string? CustomBookingId { get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -29,9 +30,7 @@ public int Id { get; set; }
 
         public int Price { get; set; }
 
-
-        
-public DateTime? BookingDate { get; set; }
-
+        // ?? MAKE DATE OPTIONAL (Fix Model Invalid)
+        public DateTime? BookingDate { get; set; }
     }
 }

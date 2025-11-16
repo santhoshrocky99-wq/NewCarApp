@@ -36,19 +36,16 @@ namespace CarCleanz.Controllers
 [HttpPost]
 public IActionResult Create(Booking booking)
 {
-    System.Console.WriteLine("?? POST HIT");
+    ModelState.Remove("BookingDate");   // <--- IMPORTANT
 
     if (!ModelState.IsValid)
     {
-        System.Console.WriteLine("? ModelState invalid");
-        foreach (var e in ModelState)
-        {
-            System.Console.WriteLine($"{e.Key} = {string.Join(",", e.Value.Errors.Select(er => er.ErrorMessage))}");
-        }
-
-        return Content("MODEL INVALID");
+        return Content("MODEL INVALID: " + 
+              string.Join(" | ", ModelState.Values
+                           .SelectMany(v => v.Errors)
+                           .Select(e => e.ErrorMessage)));
     }
-
-    return Content("MODEL VALID");
-}    }
+booking.BookingDate ??= DateTime.Now;
+}
+}
 }
