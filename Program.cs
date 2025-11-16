@@ -3,10 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services
 builder.Services.AddControllersWithViews();
 
-// Database
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -17,21 +15,18 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
 }
 
-// Static files
 app.UseStaticFiles();
 
-// Routing
 app.UseRouting();
 
-// No antiforgery
-app.UseAuthorization();
-// Disable antiforgery completely
+// Disable antiforgery globally (correct version)
 app.Use((context, next) =>
 {
-    context.Features.Set<Microsoft.AspNetCore.Antiforgery.IAntiforgeryFeature>(null);
+    context.Request.Headers.Remove("RequestVerificationToken");
     return next();
 });
 
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
