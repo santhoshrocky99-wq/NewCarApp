@@ -1,17 +1,40 @@
 @model CarCleanz.Models.Booking
 
-<section style="text-align:center; padding:40px; color:white;">
-    <h2 style="color:#00ff6a;">Payment Successful ?</h2>
+<section style="padding: 40px; text-align: center; color: white;">
 
-    <p>Thank you <strong>@Model.Name</strong>! Your booking is confirmed.</p>
+    <h2 style="color: #00ff88; font-size: 34px; font-weight: 700;">
+        Payment Successful
+    </h2>
 
-    <h3>Your Booking ID:</h3>
-    <p style="font-size:22px; color:#ff2d2d;">@Model.CustomBookingId</p>
+    <p style="margin-top: 10px; font-size: 18px;">
+        Thank you <b>@Model.Name</b>! Your booking is confirmed.
+    </p>
 
-    <h3>Booking Details:</h3>
-    <p>Vehicle: @Model.VehicleType</p>
-    <p>Car Number: @Model.CarNumber</p>
-    <p>Service Amount: ?@Model.Price</p>
+    <div style="margin-top: 25px; background: #111; padding: 25px; border-radius: 12px; 
+                display: inline-block; min-width: 320px; box-shadow: 0 0 15px rgba(0,0,0,0.4);">
 
-    <a href="/" class="btn btn-danger" style="margin-top:20px;">Go Home</a>
+        <h3 style="color: #ff4444; font-size: 26px; margin-bottom: 10px;">
+            Your Booking ID:
+        </h3>
+
+        <p style="font-size: 24px; color: #ffcc00; font-weight: bold;">
+            @Model.CustomBookingId
+        </p>
+
+        <br />
+
+        <h3 style="color: #ddd; font-size: 22px;">Booking Details:</h3>
+
+        <p style="margin: 6px;">Vehicle: <b>@Model.VehicleType</b></p>
+        <p style="margin: 6px;">Car Number: <b>@Model.CarNumber</b></p>
+        <p style="margin: 6px;">Service Amount: <b>?@Model.Price</b></p>
+    </div>
+
+    <br /><br />
+
+    <a href="/"
+       style="background: #ff2d2d; padding: 12px 25px; color: white; font-size: 18px;
+              border-radius: 8px; text-decoration: none; display: inline-block;">
+        Go Home
+    </a>
 </section>
