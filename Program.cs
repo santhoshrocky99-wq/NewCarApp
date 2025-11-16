@@ -25,6 +25,13 @@ app.UseRouting();
 
 // No antiforgery
 app.UseAuthorization();
+// Disable antiforgery completely
+app.Use((context, next) =>
+{
+    context.Features.Set<Microsoft.AspNetCore.Antiforgery.IAntiforgeryFeature>(null);
+    return next();
+});
+
 
 app.MapControllerRoute(
     name: "default",
