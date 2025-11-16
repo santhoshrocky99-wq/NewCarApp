@@ -57,6 +57,9 @@ public IActionResult Create(Booking booking)
 
     booking.CustomBookingId = $"CCA{nextNumber}";
 
+    // ?? FIX THE DATE CRASH ON RENDER
+    booking.BookingDate = DateTime.SpecifyKind(booking.BookingDate, DateTimeKind.Utc);
+
     switch ((booking.VehicleType ?? "").ToLower())
     {
         case "hatchback": booking.Price = 499; break;
@@ -69,6 +72,5 @@ public IActionResult Create(Booking booking)
     _context.SaveChanges();
 
     return RedirectToAction("Payment", new { id = booking.Id });
-}
-    }
+}    }
 }
