@@ -32,6 +32,16 @@ namespace CarCleanz.Controllers
 
             return View(booking);
         }
+[HttpGet]
+public IActionResult Success(int id)
+{
+    var booking = _context.Bookings.FirstOrDefault(b => b.Id == id);
+
+    if (booking == null)
+        return NotFound();
+
+    return View(booking);
+}
 
         // POST: Booking/Create
         [IgnoreAntiforgeryToken]
