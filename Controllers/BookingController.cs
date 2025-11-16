@@ -15,14 +15,12 @@ namespace CarCleanz.Controllers
             _context = context;
         }
 
-        // GET: Booking/Create
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
-        // GET: Booking/Payment/5
         [HttpGet]
         public IActionResult Payment(int id)
         {
@@ -36,7 +34,6 @@ namespace CarCleanz.Controllers
             return View(booking);
         }
 
-        // POST: Booking/Create
         [HttpPost]
         public IActionResult Create(Booking booking)
         {
@@ -47,7 +44,6 @@ namespace CarCleanz.Controllers
 
             try
             {
-                // Generate booking ID
                 var lastBooking = _context.Bookings
                     .OrderByDescending(b => b.Id)
                     .FirstOrDefault();
@@ -62,10 +58,8 @@ namespace CarCleanz.Controllers
 
                 booking.CustomBookingId = $"CCA{nextNumber}";
 
-                // FIX: Date conversion for Linux
                 booking.BookingDate = DateTime.SpecifyKind(booking.BookingDate, DateTimeKind.Utc);
 
-                // Price based on vehicle
                 switch ((booking.VehicleType ?? "").ToLower())
                 {
                     case "hatchback": booking.Price = 499; break;
@@ -74,7 +68,6 @@ namespace CarCleanz.Controllers
                     default: booking.Price = 0; break;
                 }
 
-                // Save
                 _context.Bookings.Add(booking);
                 _context.SaveChanges();
 
