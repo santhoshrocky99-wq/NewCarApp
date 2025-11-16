@@ -7,7 +7,7 @@
 <section class="booking-form" style="text-align:center; color:white; padding:40px;">
     <h2 style="color:#ff2d2d;">Book Your Car Cleaning</h2>
 
-    <form asp-action="Create" method="post" style="max-width:500px; margin:auto; text-align:left;">
+    <form asp-action="Create" method="post" asp-antiforgery="false" style="max-width:500px; margin:auto; text-align:left;">
 
         <div class="form-group">
             <label asp-for="Name"></label>

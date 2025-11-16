@@ -35,7 +35,9 @@ namespace CarCleanz.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Booking booking)
+[IgnoreAntiforgeryToken]
+public IActionResult Create(Booking booking)
+
         {
             if (!ModelState.IsValid)
             {
