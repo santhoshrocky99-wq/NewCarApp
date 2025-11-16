@@ -23,11 +23,10 @@ app.UseStaticFiles();
 app.UseRouting();
 
 // ?? DISABLE ANTIFORGERY COMPLETELY FOR RENDER
-app.Use((context, next) =>
+app.Use(async (context, next) =>
 {
-    context.Features.Set<Microsoft.AspNetCore.Antiforgery.IAntiforgeryFeature>(null);
     context.Request.Headers.Remove("RequestVerificationToken");
-    return next();
+    await next();
 });
 
 app.UseAuthorization();
