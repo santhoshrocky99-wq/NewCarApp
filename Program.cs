@@ -22,14 +22,25 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// ?? DISABLE ANTIFORGERY COMPLETELY FOR RENDER
-app.Use(async (context, next) =>
-{
-    context.Request.Headers.Remove("RequestVerificationToken");
-    await next();
-});
-
 app.UseAuthorization();
+
+// ==================================
+// CREATE SQLITE DB IN /tmp ON RENDER
+// ==================================
+var dbPath = "/tmp/CarCleanz.db";
+if (!File.Exists(dbPath))
+{
+    Console.WriteLine("Creating SQLite DB at: " + dbPath);
+    using (File.Create(dbPath)) { }
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    db.Database.EnsureCreated(); // runs migrations automatically
+}
+
+// ==================================
 
 app.MapControllerRoute(
     name: "default",
