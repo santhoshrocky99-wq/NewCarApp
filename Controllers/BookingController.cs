@@ -32,44 +32,24 @@ namespace CarCleanz.Controllers
         }
 
         // ?? No antiforgery validation
-        [IgnoreAntiforgeryToken]
-        [HttpPost]
-        public IActionResult Create(Booking booking)
+       [IgnoreAntiforgeryToken]
+[IgnoreAntiforgeryToken]
+[HttpPost]
+public IActionResult Create(Booking booking)
+{
+    System.Console.WriteLine("?? POST HIT");
+
+    if (!ModelState.IsValid)
+    {
+        System.Console.WriteLine("? ModelState invalid");
+        foreach (var e in ModelState)
         {
-            // Render sometimes breaks ModelState for DateTime ? ignore it
-            ModelState.Remove("BookingDate");
-
-            if (!ModelState.IsValid)
-                return View(booking);
-
-            // Auto-generate custom ID
-            var lastBooking = _context.Bookings
-                .OrderByDescending(b => b.Id)
-                .FirstOrDefault();
-
-            int nextNumber = 3000;
-            if (lastBooking != null && !string.IsNullOrEmpty(lastBooking.CustomBookingId))
-            {
-                string numberPart = lastBooking.CustomBookingId.Replace("CCA", "");
-                nextNumber = int.Parse(numberPart) + 1;
-            }
-
-            booking.CustomBookingId = $"CCA{nextNumber}";
-
-            // Price logic
-            switch (booking.VehicleType?.ToLower())
-            {
-                case "hatchback": booking.Price = 499; break;
-                case "sedan": booking.Price = 650; break;
-                case "suv": booking.Price = 750; break;
-                default: booking.Price = 0; break;
-            }
-
-            _context.Bookings.Add(booking);
-            _context.SaveChanges();
-
-            // ? Redirect finally works
-            return RedirectToAction("Payment", new { id = booking.Id });
+            System.Console.WriteLine($"{e.Key} = {string.Join(",", e.Value.Errors.Select(er => er.ErrorMessage))}");
         }
+
+        return Content("MODEL INVALID");
     }
+
+    return Content("MODEL VALID");
+}    }
 }
