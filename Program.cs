@@ -10,6 +10,14 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// ?? Add session support
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromHours(2);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 var app = builder.Build();
 
 // Error handling
@@ -22,28 +30,26 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// SESSION MIDDLEWARE
+app.UseSession();
+
 app.UseAuthorization();
 
-// ==================================
-// CREATE SQLITE DB IN /tmp ON RENDER
-// ==================================
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+// SQLite DB ensure
 var dbPath = "/tmp/CarCleanz.db";
 if (!File.Exists(dbPath))
 {
-    Console.WriteLine("Creating SQLite DB at: " + dbPath);
     using (File.Create(dbPath)) { }
 }
 
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    db.Database.EnsureCreated(); // runs migrations automatically
+    db.Database.EnsureCreated();
 }
-
-// ==================================
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
