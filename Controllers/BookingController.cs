@@ -35,9 +35,7 @@ public IActionResult Payment(int id)
 }
 
 
-
-        // POST: Booking/Create
-       [HttpPost]
+[HttpPost]
 public IActionResult Create(Booking booking)
 {
     if (!ModelState.IsValid)
@@ -61,18 +59,10 @@ public IActionResult Create(Booking booking)
 
     switch ((booking.VehicleType ?? "").ToLower())
     {
-        case "hatchback":
-            booking.Price = 499;
-            break;
-        case "sedan":
-            booking.Price = 650;
-            break;
-        case "suv":
-            booking.Price = 750;
-            break;
-        default:
-            booking.Price = 0;
-            break;
+        case "hatchback": booking.Price = 499; break;
+        case "sedan":     booking.Price = 650; break;
+        case "suv":       booking.Price = 750; break;
+        default:          booking.Price = 0;   break;
     }
 
     _context.Bookings.Add(booking);
@@ -80,6 +70,5 @@ public IActionResult Create(Booking booking)
 
     return RedirectToAction("Payment", new { id = booking.Id });
 }
-
     }
 }
