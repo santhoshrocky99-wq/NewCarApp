@@ -34,6 +34,9 @@ namespace CarCleanz.Controllers
             return View(booking);
         }
 [HttpPost]
+[IgnoreAntiforgeryToken]
+
+
 public IActionResult Create(Booking booking)
 {
     ModelState.Remove("BookingDate");  // Remove validation for BookingDate

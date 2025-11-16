@@ -4,10 +4,7 @@ using Microsoft.AspNetCore.DataProtection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ? Data Protection fix for Render (persistent antiforgery keys)
-builder.Services.AddDataProtection()
-    .PersistKeysToFileSystem(new DirectoryInfo("/tmp/keys"))
-    .SetApplicationName("CarCleanzApp");
+
 
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
 
@@ -20,6 +17,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
+builder.Services.AddDataProtection()
+    .SetApplicationName("CarCleanz");
+
 
 var app = builder.Build();
 
