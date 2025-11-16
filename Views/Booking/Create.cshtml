@@ -58,10 +58,11 @@
        
 
         <div class="form-group">
-            
-            <input asp-for="BookingDate" type="date" class="form-control" required />
-            <span asp-validation-for="BookingDate" class="text-danger">BookingDate</span>
-        </div>
+    <label asp-for="BookingDate"></label>
+    <input asp-for="BookingDate" type="date" class="form-control" required />
+    <span asp-validation-for="BookingDate" class="text-danger"></span>
+</div>
+
 
         <button type="submit" class="btn btn-danger" style="margin-top:20px; width:100%;">Submit</button>
     </form>
