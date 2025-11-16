@@ -43,34 +43,45 @@ public IActionResult Create(Booking booking)
         return View(booking);
     }
 
-    var lastBooking = _context.Bookings
-        .OrderByDescending(b => b.Id)
-        .FirstOrDefault();
-
-    int nextNumber = 3000;
-
-    if (lastBooking != null && !string.IsNullOrEmpty(lastBooking.CustomBookingId))
+    try
     {
-        string numberPart = lastBooking.CustomBookingId.Replace("CCA", "");
-        nextNumber = int.Parse(numberPart) + 1;
+        // 1. Generate CustomBookingId
+        var lastBooking = _context.Bookings
+            .OrderByDescending(b => b.Id)
+            .FirstOrDefault();
+
+        int nextNumber = 3000;
+
+        if (lastBooking != null && !string.IsNullOrEmpty(lastBooking.CustomBookingId))
+        {
+            string numberPart = lastBooking.CustomBookingId.Replace("CCA", "");
+            nextNumber = int.Parse(numberPart) + 1;
+        }
+
+        booking.CustomBookingId = $"CCA{nextNumber}";
+
+        // 2. Force UTC datetime (Linux fix)
+        booking.BookingDate = DateTime.SpecifyKind(booking.BookingDate, DateTimeKind.Utc);
+
+        // 3. Price by vehicle type
+        switch ((booking.VehicleType ?? "").ToLower())
+        {
+            case "hatchback": booking.Price = 499; break;
+            case "sedan": booking.Price = 650; break;
+            case "suv": booking.Price = 750; break;
+            default: booking.Price = 0; break;
+        }
+
+        // 4. Save with try/catch
+        _context.Bookings.Add(booking);
+        _context.SaveChanges();   // <-- if this fails, we will catch it
+
+        return RedirectToAction("Payment", new { id = booking.Id });
     }
-
-    booking.CustomBookingId = $"CCA{nextNumber}";
-
-    // ?? FIX THE DATE CRASH ON RENDER
-    booking.BookingDate = DateTime.SpecifyKind(booking.BookingDate, DateTimeKind.Utc);
-
-    switch ((booking.VehicleType ?? "").ToLower())
+    catch (Exception ex)
     {
-        case "hatchback": booking.Price = 499; break;
-        case "sedan":     booking.Price = 650; break;
-        case "suv":       booking.Price = 750; break;
-        default:          booking.Price = 0;   break;
+        // ?? THIS WILL PRINT FULL ERROR DIRECTLY IN BROWSER
+        return Content("ERROR: " + ex.ToString());
     }
-
-    _context.Bookings.Add(booking);
-    _context.SaveChanges();
-
-    return RedirectToAction("Payment", new { id = booking.Id });
-}    }
+}
 }
