@@ -35,7 +35,8 @@
                         <td style="padding: 8px;">@booking.HouseType</td>
                         <td style="padding: 8px;">@booking.CarNumber</td>
                         <td style="padding: 8px;">@booking.Price</td>
-                        <td style="padding: 8px;">@booking.BookingDate.ToString("dd-MM-yyyy")</td>
+                        <td style="padding: 8px;">@(booking.BookingDate?.ToString("dd-MM-yyyy"))
+</td>
                     </tr>
                 }
             }
