@@ -1,0 +1,53 @@
+@model IEnumerable<CarCleanz.Models.Booking>
+
+@{
+    ViewBag.Title = "Admin - Booking Records";
+}
+
+<section class="admin-section" style="padding: 30px; color: #fff;">
+    <h2 style="color: #ff2d2d; margin-bottom: 20px;">?? All Bookings</h2>
+
+    <table class="table table-bordered table-striped" style="width: 100%; border-collapse: collapse; color: #fff;">
+        <thead>
+            <tr>
+                <th style="padding: 8px;">Booking ID</th>
+                <th style="padding: 8px;">Customer Name</th>
+                <th style="padding: 8px;">Mobile</th>
+                <th style="padding: 8px;">Address</th>
+                <th style="padding: 8px;">Vehicle Type</th>
+                <th style="padding: 8px;">House Type</th>
+                <th style="padding: 8px;">Car Number</th>
+                <th style="padding: 8px;">Amount (?)</th>
+                <th style="padding: 8px;">Booking Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var booking in Model)
+                {
+                    <tr>
+                        <td style="padding: 8px;">@booking.Id</td>
+                        <td style="padding: 8px;">@booking.Name</td>
+                        <td style="padding: 8px;">@booking.Mobile</td>
+                        <td style="padding: 8px;">@booking.Address</td>
+                        <td style="padding: 8px;">@booking.VehicleType</td>
+                        <td style="padding: 8px;">@booking.HouseType</td>
+                        <td style="padding: 8px;">@booking.CarNumber</td>
+                        <td style="padding: 8px;">@booking.Price</td>
+                        <td style="padding: 8px;">@booking.BookingDate?.ToString("dd-MM-yyyy")
+</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="9" style="padding: 20px; text-align: center; color: #ccc;">
+                        No bookings available.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>

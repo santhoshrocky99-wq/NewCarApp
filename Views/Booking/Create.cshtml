@@ -1,0 +1,72 @@
+@model CarCleanz.Models.Booking
+
+@{
+    ViewData["Title"] = "Book Your Car Cleaning";
+}
+
+<section class="booking-form" style="text-align:center; color:white; padding:40px;">
+    <h2 style="color:#ff2d2d;">Book Your Car Cleaning</h2>
+
+    <form asp-action="Create" method="post" style="max-width:500px; margin:auto; text-align:left;">
+
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" required />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Mobile"></label>
+            <input asp-for="Mobile" class="form-control" required />
+            <span asp-validation-for="Mobile" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Address"></label>
+            <input asp-for="Address" class="form-control" required />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="VehicleType"></label>
+            <select asp-for="VehicleType" class="form-control" required>
+                <option value="">-- Select Vehicle Type --</option>
+                <option value="hatchback">Car</option>
+                <option value="sedan">Van</option>
+                <option value="suv">SUV</option>
+            </select>
+            <span asp-validation-for="VehicleType" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="HouseType"></label>
+            <select asp-for="HouseType" class="form-control" required>
+                <option value="">-- Select House Type --</option>
+                <option value="Individual">Individual</option>
+                <option value="Villa">Villa</option>
+                <option value="Apartment">Apartment</option>
+            </select>
+            <span asp-validation-for="HouseType" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CarNumber"></label>
+            <input asp-for="CarNumber" class="form-control" required />
+            <span asp-validation-for="CarNumber" class="text-danger"></span>
+        </div>
+
+       
+
+        <div class="form-group">
+            
+            <input asp-for="BookingDate" type="date" class="form-control" required />
+            <span asp-validation-for="BookingDate" class="text-danger">BookingDate</span>
+        </div>
+
+        <button type="submit" class="btn btn-danger" style="margin-top:20px; width:100%;">Submit</button>
+    </form>
+</section>
+
+@section Scripts {
+   
+}

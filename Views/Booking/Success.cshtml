@@ -1,0 +1,28 @@
+@model CarCleanz.Models.Booking
+
+@{
+    ViewBag.Title = "Booking Success";
+}
+
+<section class="success-section" style="text-align:center; padding:40px; color:white;">
+    <h2 style="color:#ff2d2d;">Booking Successful!</h2>
+
+    <div style="margin:30px auto; max-width:500px; background:#111; padding:20px; border-radius:10px; text-align:left;">
+        <h3 style="color:#ff2d2d;">Booking Summary</h3>
+        <hr style="border-color:#333;" />
+        <h3>Your Booking ID: @Model.CustomBookingId</h3>
+        <p><strong>Name:</strong> @Model.Name</p>
+        <p><strong>Mobile:</strong> @Model.Mobile</p>
+        <p><strong>Address:</strong> @Model.Address</p>
+        <p><strong>Vehicle Type:</strong> @Model.VehicleType</p>
+        <p><strong>House Type:</strong> @Model.HouseType</p>
+        <p><strong>Car Number:</strong> @Model.CarNumber</p>
+        <p><strong>Amount Paid:</strong>&#8377;@Model.Price</p>
+        <p>Thank you for booking with <strong>Car Cleanz</strong>.</p>
+    </div>
+
+    <a href="/" class="btn btn-danger"
+       style="background:#ff2d2d; color:#fff; padding:10px 20px; border-radius:6px; text-decoration:none;">
+       Go to Home
+    </a>
+</section>

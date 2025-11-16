@@ -1,0 +1,23 @@
+@model CarCleanz.Models.Booking
+
+<section class="payment-section" style="text-align:center; padding:40px; color:white;">
+    <h2 style="color:#ff2d2d;">Complete Your Payment</h2>
+
+    <div style="text-align:center; margin-top:20px;">
+    <div style="background:#111; display:inline-block; padding:15px 25px; border-radius:8px; color:white;">
+        <h3>Amount to Pay: <span style="color:#00ff7f;">&#8377;@Model.Price</span></h3>
+    </div>
+</div>
+
+    <div style="margin:20px auto; max-width:280px;">
+        <img src="/images/paymentQR.png" alt="Payment QR" style="width:100%; border-radius:8px;" />
+        <p style="margin-top:15px;">Scan QR or pay via UPI ID:</p>
+        <p style="color:#ff4d4d;"><strong>carcleanz@upi</strong></p>
+    </div>
+
+    <a href="/Booking/Success/@Model.Id"
+       class="btn btn-danger"
+       style="background:#ff2d2d; color:#fff; padding:10px 20px; border-radius:6px; text-decoration:none;">
+       Payment Done
+    </a>
+</section>

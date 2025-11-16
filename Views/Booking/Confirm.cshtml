@@ -1,0 +1,30 @@
+@model CarCleanz.Models.Booking
+@{
+    ViewData["Title"] = "Booking Confirmed";
+}
+
+<div class="container text-center mt-5">
+    <div class="card shadow-lg p-4 rounded-4 border-0">
+        <div class="card-body">
+            <img src="~/images/success.png" alt="Success" class="mb-4" style="width:100px;">
+            <h2 class="text-success mb-3">Booking Confirmed!</h2>
+            <p class="lead mb-4">
+                Thank you for choosing <strong>Car Cleanz</strong>! 🚘<br />
+                Your booking details have been successfully received.
+            </p>
+
+            <div class="alert alert-info w-75 mx-auto">
+                <strong>Note:</strong> Our team will contact you soon to confirm your service timing.
+            </div>
+
+            <a href="@Url.Action("Index", "Home")" class="btn btn-dark rounded-pill px-4 mt-3">
+                <i class="bi bi-house-door"></i> Back to Home
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8f9
+
