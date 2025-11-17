@@ -14,7 +14,10 @@ namespace CarCleanz.Models
         public string Name { get; set; }
 
         [Required]
-        public string Mobile { get; set; }
+[RegularExpression(@"^[0-9]{10}$", ErrorMessage = "Mobile number must be 10 digits")]
+public string Mobile { get; set; }
+
+public string ApartmentName { get; set; }
 
         [Required]
         public string Address { get; set; }
@@ -26,7 +29,9 @@ namespace CarCleanz.Models
         public string HouseType { get; set; }
 
         [Required]
-        public string CarNumber { get; set; }
+[RegularExpression(@"^[A-Za-z]{2}[0-9]{2}[A-Za-z]{1,2}[0-9]{4}$", 
+    ErrorMessage = "Enter a valid car number (e.g., TN09AC7667)")]
+public string CarNumber { get; set; }
 
         public int Price { get; set; }
 
