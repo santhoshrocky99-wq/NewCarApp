@@ -8,9 +8,9 @@ builder.Services.AddControllersWithViews();
 
 // Database
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// ?? Add session support
+// Add session support
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromHours(2);
@@ -27,10 +27,9 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseStaticFiles();
-
 app.UseRouting();
 
-// SESSION MIDDLEWARE
+// Session
 app.UseSession();
 
 app.UseAuthorization();
@@ -38,18 +37,5 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-// SQLite DB ensure
-var dbPath = "/tmp/CarCleanz.db";
-if (!File.Exists(dbPath))
-{
-    using (File.Create(dbPath)) { }
-}
-
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    db.Database.EnsureCreated();
-}
 
 app.Run();
