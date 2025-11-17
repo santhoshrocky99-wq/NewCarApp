@@ -44,52 +44,29 @@ public IActionResult Success(int id)
 }
 
         // POST: Booking/Create
-        [IgnoreAntiforgeryToken]
         [HttpPost]
-        public IActionResult Create(Booking booking)
-        {
-            // Fix ModelState for optional date
-            ModelState.Remove("BookingDate");
+[IgnoreAntiforgeryToken]
+public IActionResult Create(Booking booking)
+{
+    if (ModelState.IsValid)
+    {
+        // ALWAYS force UTC for PostgreSQL
+        booking.BookingDate = DateTime.UtcNow;
 
-            if (!ModelState.IsValid)
-            {
-                return Content("MODEL INVALID");
-            }
+        // OR if you're allowing user-specified date:
+        // if (booking.BookingDate.HasValue)
+        //     booking.BookingDate = DateTime.SpecifyKind(booking.BookingDate.Value, DateTimeKind.Utc);
+        // else
+        //     booking.BookingDate = DateTime.UtcNow;
 
-            // Auto booking date
-            booking.BookingDate ??= DateTime.Now;
+        _context.Bookings.Add(booking);
+        _context.SaveChanges();
 
-            // Auto-generate custom booking id
-            var lastBooking = _context.Bookings
-                .OrderByDescending(b => b.Id)
-                .FirstOrDefault();
+        TempData["Success"] = "Booking saved successfully!";
+        return RedirectToAction("Index", "Home");
+    }
 
-            int nextNumber = 3000;
-
-            if (lastBooking != null && !string.IsNullOrEmpty(lastBooking.CustomBookingId))
-            {
-                string numberPart = lastBooking.CustomBookingId.Replace("CCA", "");
-                int.TryParse(numberPart, out nextNumber);
-                nextNumber++;
-            }
-
-            booking.CustomBookingId = $"CCA{nextNumber}";
-
-            // Pricing logic
-            switch ((booking.VehicleType ?? "").ToLower())
-            {
-                case "hatchback": booking.Price = 499; break;
-                case "sedan": booking.Price = 650; break;
-                case "suv": booking.Price = 750; break;
-                default: booking.Price = 0; break;
-            }
-
-            // Save to database
-            _context.Bookings.Add(booking);
-            _context.SaveChanges();
-
-            // Redirect to payment page
-            return RedirectToAction("Payment", new { id = booking.Id });
-        }
+    return View(booking);
+}
     }
 }
