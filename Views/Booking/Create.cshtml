@@ -48,9 +48,20 @@
 
 
         <div class="form-group">
-            <label asp-for="BookingDate"></label>
-            <input asp-for="BookingDate" type="date" class="form-control" required />
-        </div>
+    <label asp-for="BookingDate"></label>
+    <input asp-for="BookingDate" type="date" class="form-control"
+       min="@DateTime.Now.ToString("yyyy-MM-dd")" required />
+
+</div>
+
+<script>
+    // Get today's date in YYYY-MM-DD format
+    const today = new Date().toISOString().split("T")[0];
+
+    // Set minimum selectable date
+    document.getElementById("bookingDate").setAttribute("min", today);
+</script>
+
 
         <button type="submit" class="btn btn-danger" style="margin-top:20px; width:100%;">Submit</button>
     </form>

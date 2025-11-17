@@ -44,35 +44,43 @@ public IActionResult Success(int id)
 }
 
         // POST: Booking/Create
-        [IgnoreAntiforgeryToken]
-[HttpPost]
+        [HttpPost]
+[IgnoreAntiforgeryToken]
 public IActionResult Create(Booking booking)
 {
-    if (ModelState.IsValid)
+    if (!ModelState.IsValid)
     {
-        // Set date
-        booking.BookingDate = DateTime.UtcNow;
-
-        // Set custom ID
-        booking.CustomBookingId = "CC" + DateTime.UtcNow.Ticks;
-
-        // Price based on vehicle type
-        booking.Price = booking.VehicleType.ToLower() switch
-        {
-            "hatchback" => 499,
-            "sedan"     => 650,
-            "suv"       => 750,
-            _           => 0
-        };
-
-        _context.Bookings.Add(booking);
-        _context.SaveChanges();
-
-        // Redirect to Payment page using the booking ID
-        return RedirectToAction("Payment", new { id = booking.Id });
+        return View(booking);
     }
 
-    return View(booking);
+    // **Prevent selecting past date**
+    if (booking.BookingDate.HasValue && booking.BookingDate.Value.Date < DateTime.UtcNow.Date)
+    {
+        ModelState.AddModelError("BookingDate", "Booking date cannot be a past date.");
+        return View(booking);
+    }
+
+    // **Force booking date to TODAY if user selected older date (extra safety)**
+    booking.BookingDate = DateTime.UtcNow;
+
+    // **Generate Custom Booking ID**
+    booking.CustomBookingId = "CC" + DateTime.UtcNow.Ticks;
+
+    // **Assign Price based on vehicle type**
+    booking.Price = booking.VehicleType.ToLower() switch
+    {
+        "hatchback" => 499,
+        "sedan"     => 650,
+        "suv"       => 750,
+        _           => 0
+    };
+
+    // **Save to DB**
+    _context.Bookings.Add(booking);
+    _context.SaveChanges();
+
+    // **Redirect to Payment page**
+    return RedirectToAction("Payment", new { id = booking.Id });
 }
     }
 }
