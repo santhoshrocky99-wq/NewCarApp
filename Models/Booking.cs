@@ -26,8 +26,7 @@ public string ApartmentName { get; set; } = null!;
         [Required]
         public string VehicleType { get; set; }
 
-        [Required]
-        public string HouseType { get; set; }
+        
 
         [Required]
 [RegularExpression(@"^[A-Za-z]{2}[0-9]{2}[A-Za-z]{1,2}[0-9]{4}$", 
