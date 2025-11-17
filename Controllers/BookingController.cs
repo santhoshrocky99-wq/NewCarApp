@@ -50,29 +50,26 @@ public IActionResult Create(Booking booking)
 {
     if (ModelState.IsValid)
     {
-        // Fix DateTime for PostgreSQL
-        if (booking.BookingDate.HasValue)
-            booking.BookingDate = DateTime.SpecifyKind(booking.BookingDate.Value, DateTimeKind.Utc);
-        else
-            booking.BookingDate = DateTime.UtcNow;
+        // Set date
+        booking.BookingDate = DateTime.UtcNow;
 
-        // Auto price logic
+        // Set custom ID
+        booking.CustomBookingId = "CC" + DateTime.UtcNow.Ticks;
+
+        // Price based on vehicle type
         booking.Price = booking.VehicleType.ToLower() switch
         {
             "hatchback" => 499,
-            "sedan" => 650,
-            "suv" => 750,
-            _ => 0
+            "sedan"     => 650,
+            "suv"       => 750,
+            _           => 0
         };
-
-        // Generate custom ID
-        booking.CustomBookingId = "CB" + DateTime.UtcNow.Ticks;
 
         _context.Bookings.Add(booking);
         _context.SaveChanges();
 
-        // Redirect to Success page with ID
-        return RedirectToAction("Success", new { id = booking.Id });
+        // Redirect to Payment page using the booking ID
+        return RedirectToAction("Payment", new { id = booking.Id });
     }
 
     return View(booking);
