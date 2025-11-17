@@ -37,18 +37,29 @@ namespace CarCleanz.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(string username, string password)
-        {
-            if (username == "admin" && password == "1234")
-            {
-                HttpContext.Session.SetString("IsAdmin", "true");
-                return RedirectToAction("Index");
-            }
+public IActionResult Login(string username, string password)
+{
+    if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+    {
+        ViewBag.Error = "Please fill all fields.";
+        return View();
+    }
 
-            ViewBag.Error = "Invalid username or password.";
-            return View();
-        }
+    var admin = _context.AdminViews
+        .FirstOrDefault(a =>
+            a.Username.ToLower().Trim() == username.ToLower().Trim() &&
+            a.Password.Trim() == password.Trim()
+        );
 
+    if (admin != null)
+    {
+        HttpContext.Session.SetString("AdminLoggedIn", "true");
+        return RedirectToAction("Index", "Admin"); // your admin dashboard
+    }
+
+    ViewBag.Error = "Invalid username or password.";
+    return View();
+}
         public IActionResult Logout()
         {
             HttpContext.Session.Remove("IsAdmin");
