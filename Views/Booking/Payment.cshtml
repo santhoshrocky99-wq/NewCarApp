@@ -3,21 +3,41 @@
 <section class="payment-section" style="text-align:center; padding:40px; color:white;">
     <h2 style="color:#ff2d2d;">Complete Your Payment</h2>
 
+    <!-- Amount Box -->
     <div style="text-align:center; margin-top:20px;">
-    <div style="background:#111; display:inline-block; padding:15px 25px; border-radius:8px; color:white;">
-        <h3>Amount to Pay: <span style="color:#00ff7f;">&#8377;@Model.Price</span></h3>
+        <div style="background:#111; display:inline-block; padding:15px 25px; border-radius:8px; color:white;">
+            <h3>Amount to Pay: <span style="color:#00ff7f;">&#8377;@Model.Price</span></h3>
+        </div>
     </div>
-</div>
 
+    <!-- QR + UPI -->
     <div style="margin:20px auto; max-width:280px;">
         <img src="/images/paymentQR.png" alt="Payment QR" style="width:100%; border-radius:8px;" />
-        <p style="margin-top:15px;">Scan QR or pay via UPI ID:</p>
-        <p style="color:#ff4d4d;"><strong>carcleanz@upi</strong></p>
+
+        <p style="margin-top:15px;">
+            Once the payment is completed, click the <strong>Payment Done</strong> button below.
+        </p>
+
+        <p style="margin-top:10px; font-size:15px;">
+            You can also pay using this UPI ID:
+        </p>
+
+        <span id="upiText" style="font-size:17px; font-weight:bold;">yourupiid@bank</span>
+        <button onclick="copyUPI()" class="btn btn-sm btn-light" style="margin-left:6px;">?? Copy</button>
     </div>
 
+    <!-- Payment Done Button -->
     <a href="/Booking/Success/@Model.Id"
        class="btn btn-danger"
-       style="background:#ff2d2d; color:#fff; padding:10px 20px; border-radius:6px; text-decoration:none;">
+       style="background:#ff2d2d; color:#fff; padding:10px 20px; border-radius:6px; text-decoration:none; margin-top:20px;">
        Payment Done
     </a>
 </section>
+
+<script>
+    function copyUPI() {
+        var text = document.getElementById("upiText").innerText;
+        navigator.clipboard.writeText(text);
+        alert("UPI ID copied!");
+    }
+</script>
