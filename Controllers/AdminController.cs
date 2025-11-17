@@ -16,20 +16,13 @@ namespace CarCleanz.Controllers
 
         public IActionResult Index()
         {
-            // ? Security Check — Only allow logged-in admin
             if (HttpContext.Session.GetString("IsAdmin") != "true")
-            {
                 return RedirectToAction("Login");
-            }
 
-            // ? Fetch all bookings from database
             var bookings = _context.Bookings.ToList();
-
-            // ? Pass them to the View
             return View(bookings);
         }
 
-        // Admin Login Page
         [HttpGet]
         public IActionResult Login()
         {
@@ -37,29 +30,30 @@ namespace CarCleanz.Controllers
         }
 
         [HttpPost]
-public IActionResult Login(string username, string password)
-{
-    if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
-    {
-        ViewBag.Error = "Please fill all fields.";
-        return View();
-    }
+        public IActionResult Login(string username, string password)
+        {
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            {
+                ViewBag.Error = "Please fill all fields.";
+                return View();
+            }
 
-    var admin = _context.AdminViews
-        .FirstOrDefault(a =>
-            a.Username.ToLower().Trim() == username.ToLower().Trim() &&
-            a.Password.Trim() == password.Trim()
-        );
+            var admin = _context.AdminViews
+                .FirstOrDefault(a =>
+                    a.Username.ToLower().Trim() == username.ToLower().Trim() &&
+                    a.Password.Trim() == password.Trim()
+                );
 
-    if (admin != null)
-    {
-        HttpContext.Session.SetString("AdminLoggedIn", "true");
-        return RedirectToAction("Index", "Admin"); // your admin dashboard
-    }
+            if (admin != null)
+            {
+                HttpContext.Session.SetString("IsAdmin", "true");
+                return RedirectToAction("Index");
+            }
 
-    ViewBag.Error = "Invalid username or password.";
-    return View();
-}
+            ViewBag.Error = "Invalid username or password.";
+            return View();
+        }
+
         public IActionResult Logout()
         {
             HttpContext.Session.Remove("IsAdmin");
