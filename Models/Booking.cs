@@ -17,8 +17,9 @@ namespace CarCleanz.Models
 [RegularExpression(@"^[0-9]{10}$", ErrorMessage = "Mobile number must be 10 digits")]
 public string Mobile { get; set; }
 
-public string ApartmentName { get; set; }
-
+[Required]
+[Display(Name = "Apartment Name")]
+public string ApartmentName { get; set; } = null!;
         [Required]
         public string Address { get; set; }
 
