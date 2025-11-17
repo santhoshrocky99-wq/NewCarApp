@@ -1,48 +1,40 @@
 @model CarCleanz.Models.Booking
 
 <section class="payment-section" style="text-align:center; padding:40px; color:white;">
+    <h2 style="color:#00ff7f;">Amount to Pay: &#8377;@Model.Price</h2>
 
-    <h2 style="color:#00ff7f; margin-bottom:20px;">
-        Amount to Pay: ?@Model.Price
-    </h2>
-
-    <!-- QR CODE -->
-    <div style="max-width:300px; margin:auto;">
+    <div style="margin-top:20px;">
         <img src="/images/paymentQR.png" alt="Payment QR"
-             style="width:100%; border-radius:10px;" />
+             style="width:260px; border-radius:10px;" />
     </div>
 
-    <!-- UPI ID -->
-    <div style="margin-top:25px; font-size:18px;">
-        <strong>UPI ID:</strong>
-        <span id="upiText" style="font-size:18px; margin-left:5px;">yourupiid@bank</span>
+    <p style="margin-top:15px; font-size:16px;">UPI ID:</p>
 
-        <!-- COPY ICON -->
-        <span onclick="copyUPI()"
-              style="cursor:pointer; margin-left:10px; font-size:20px; color:#00ff7f;">
-            ??
-        </span>
+    <div style="display:flex; justify-content:center; align-items:center; gap:8px;">
+        <span id="upiText" style="font-size:18px;">yourupiid@bank</span>
+
+        <!-- COPY ICON SVG -->
+        <svg onclick="copyUPI()" style="cursor:pointer;" width="22" height="22" 
+             fill="white" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 1H4a2 2 0 0 0-2 2v12h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v12a2 
+                     2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 14H8V7h11v12z"/>
+        </svg>
     </div>
 
-    <!-- Instruction text -->
-    <p style="margin-top:15px; font-size:15px; max-width:400px; margin:auto;">
-        Once the payment is completed, click the <strong>Payment Done</strong> button below.
+    <p style="margin-top:15px; color:#bbb;">
+        Once the payment is completed, click the <b>Payment Done</b> button below.
     </p>
 
-    <!-- Payment Done Button -->
-    <a href="/Booking/Success/@Model.Id"
-       class="btn"
-       style="background:#ff2d2d; color:#fff; padding:12px 25px;
-              border-radius:6px; display:inline-block; text-decoration:none; margin-top:20px;">
+    <a href="/Booking/Success/@Model.Id" 
+       class="btn btn-danger" 
+       style="background:#ff2d2d; color:white; padding:10px 25px; border-radius:6px;">
         Payment Done
     </a>
-
 </section>
 
 <script>
-    function copyUPI() {
-        const text = document.getElementById("upiText").innerText;
-        navigator.clipboard.writeText(text);
-        alert("UPI ID copied: " + text);
-    }
+function copyUPI() {
+    navigator.clipboard.writeText(document.getElementById("upiText").innerText);
+    alert("UPI ID copied!");
+}
 </script>
