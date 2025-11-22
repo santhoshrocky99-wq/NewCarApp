@@ -23,6 +23,15 @@ body.theme-redblack {
   top:0;
   z-index:1000;
 }
+.navbar .nav-link {
+  color: #fff !important;
+  font-weight: 500;
+}
+
+.navbar .nav-link:hover {
+  color: #ff2d2d !important;
+}
+
 .logo-wrap a { display:flex; align-items:center; text-decoration:none; color:inherit; }
 .main-nav a { margin-left:18px; color:#fff; text-decoration:none; font-weight:600; }
 .hero { display:flex; gap:24px; padding:48px 28px; align-items:center; }
