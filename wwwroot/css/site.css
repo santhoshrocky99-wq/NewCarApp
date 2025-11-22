@@ -25,6 +25,11 @@ body.theme-redblack {
 .navbar-toggler-icon {
     filter: invert(1);
 }
+.navbar-collapse.show {
+  display: block !important;
+  background: #000;
+  padding: 10px;
+}
 
 .navbar .nav-link {
   color: #fff !important;
