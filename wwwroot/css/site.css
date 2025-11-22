@@ -23,6 +23,10 @@ body.theme-redblack {
   top:0;
   z-index:1000;
 }
+.navbar-toggler-icon {
+    filter: invert(1);
+}
+
 .navbar .nav-link {
   color: #fff !important;
   font-weight: 500;
