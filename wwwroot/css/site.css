@@ -14,9 +14,8 @@ body.theme-redblack {
 }
 /* header */
 .site-header {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+  display:block;
+  
   padding:12px 28px;
   background: linear-gradient(90deg, rgba(0,0,0,0.6), rgba(0,0,0,0.3));
   position:sticky;
@@ -51,7 +50,7 @@ body.theme-redblack {
 
 
 /* === HEADER & NAVBAR FIX === */
-.site-header {
+/*.site-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -61,7 +60,7 @@ body.theme-redblack {
   top: 0;
   z-index: 1000;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
+}*/
 html {
   scroll-behavior: smooth;
 }
