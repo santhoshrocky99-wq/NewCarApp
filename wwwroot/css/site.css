@@ -87,20 +87,39 @@ body.theme-redblack {
 
 /* Mobile navbar solid bar */
 @media (max-width: 768px) {
-   .navbar-nav {
-    flex-direction: row !important;
-    gap: 15px;
-  }
-  .site-header { display: block; }
-  .custom-nav {
-    background: #000 !important;
-    position: relative;
-  }
-  .navbar-collapse {
-    background: #000;
-    padding: 10px;
-  }
+  /* MOBILE: place nav inline right of logo */
+@media (max-width: 768px) {
+    .site-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    /* Ensure nav is inline */
+    .navbar-nav {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 18px !important;
+        padding: 0 !important;
+    }
+
+    /* Remove collapse behavior fully */
+    .navbar-toggler { 
+        display: none !important; 
+    }
+
+    .navbar-collapse {
+        display: flex !important;
+        background: transparent !important;
+        padding: 0 !important;
+    }
+
+    nav.navbar {
+        background: transparent !important;
+        padding: 0 !important;
+    }
 }
+
 
 /* ==========================
    HERO SECTION
