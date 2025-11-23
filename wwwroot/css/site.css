@@ -32,6 +32,14 @@ body.theme-redblack {
   margin-bottom: 0;
   padding-bottom: 0;
 }
+.section-title {
+    text-align: center;
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
 
 .logo-wrap a {
   display: flex;
