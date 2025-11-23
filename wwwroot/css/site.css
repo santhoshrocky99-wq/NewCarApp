@@ -22,6 +22,40 @@ body.theme-redblack {
   top:0;
   z-index:1000;
 }
+/* Default (Desktop) - Blend with background */
+.custom-nav {
+    background: transparent !important;
+    padding-top: 10px;
+    border: none;
+    box-shadow: none;
+}
+
+/* Remove bar height space on desktop */
+@media (min-width: 769px) {
+    .custom-nav {
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 0;
+    }
+
+    .custom-nav .navbar-brand img {
+        height: 60px;
+    }
+}
+
+/* Mobile View - Solid Black Bar */
+@media (max-width: 768px) {
+    .custom-nav {
+        background: #000 !important;
+        position: relative;
+    }
+
+    .custom-nav .navbar-brand img {
+        height: 38px;
+    }
+}
+
 @media (max-width: 768px) {
   .site-header {
       display: block !important;
