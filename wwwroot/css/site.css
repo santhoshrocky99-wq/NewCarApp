@@ -56,6 +56,15 @@ body.theme-redblack {
   color: #fff !important;
   font-weight: 500;
 }
+.navbar-nav {
+    flex-direction: row !important;
+    gap: 20px;
+}
+
+.navbar-toggler {
+    display: none !important;
+}
+
 .navbar .nav-link:hover {
   color: #ff2d2d !important;
 }
