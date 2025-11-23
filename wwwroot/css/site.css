@@ -88,9 +88,8 @@ body.theme-redblack {
 /* Mobile navbar solid bar */
 @media (max-width: 768px) {
    .navbar-nav {
-      gap: 10px;
-      font-size: 14px;
-      padding-right: 5px;
+    flex-direction: row !important;
+    gap: 15px;
   }
   .site-header { display: block; }
   .custom-nav {
