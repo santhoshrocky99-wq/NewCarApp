@@ -86,8 +86,7 @@ body.theme-redblack {
 }
 
 /* Mobile navbar solid bar */
-@media (max-width: 768px) {
-  /* MOBILE: place nav inline right of logo */
+/* Mobile View */
 @media (max-width: 768px) {
     .site-header {
         display: flex;
@@ -95,30 +94,28 @@ body.theme-redblack {
         align-items: center;
     }
 
-    /* Ensure nav is inline */
-    .navbar-nav {
-        display: flex !important;
-        flex-direction: row !important;
-        gap: 18px !important;
-        padding: 0 !important;
-    }
-
-    /* Remove collapse behavior fully */
-    .navbar-toggler { 
-        display: none !important; 
-    }
-
-    .navbar-collapse {
-        display: flex !important;
-        background: transparent !important;
-        padding: 0 !important;
-    }
-
+    /* Make nav links inline in mobile */
     nav.navbar {
         background: transparent !important;
         padding: 0 !important;
     }
+
+    .container-fluid {
+        display: flex;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
 }
+
+/* Nav link styling */
+.nav-link {
+    padding: 8px 12px;
+    font-weight: 600;
+    color: white !important;
+    text-decoration: none;
+}
+
 
 
 /* ==========================
