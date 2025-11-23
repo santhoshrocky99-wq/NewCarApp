@@ -22,6 +22,21 @@ body.theme-redblack {
   top:0;
   z-index:1000;
 }
+@media (max-width: 768px) {
+  .site-header {
+      display: block !important;
+  }
+
+  .navbar-collapse {
+      background: #000;
+      padding: 10px;
+  }
+
+  .navbar-collapse.show {
+      display: block !important;
+  }
+}
+
 .navbar-toggler-icon {
     filter: invert(1);
 }
