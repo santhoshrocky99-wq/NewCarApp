@@ -22,6 +22,24 @@ body.theme-redblack {
   top:0;
   z-index:1000;
 }
+.hero-section {
+    text-align: left;
+    padding-left: 20px; /* adjust to align exactly under logo */
+    margin-top: 20px;
+}
+
+.hero-section h1 {
+    color: #ff2d2d;
+    margin-bottom: 5px;
+    font-size: 3rem; /* adjust size if needed */
+}
+
+.hero-section p {
+    color: white;
+    margin: 0;
+    font-size: 1.1rem;
+}
+
 /* Default (Desktop) - Blend with background */
 .custom-nav {
     background: transparent !important;
