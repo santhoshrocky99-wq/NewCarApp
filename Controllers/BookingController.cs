@@ -70,8 +70,8 @@ public IActionResult Create(Booking booking)
     booking.Price = booking.VehicleType.ToLower() switch
     {
         "hatchback" => 499,
-        "sedan"     => 650,
-        "suv"       => 750,
+        "sedan"     => 599,
+        "suv"       => 699,
         _           => 0
     };
 
