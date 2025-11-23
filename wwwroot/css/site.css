@@ -57,8 +57,8 @@ body.theme-redblack {
   font-weight: 500;
 }
 .navbar-nav {
-    flex-direction: row !important;
-    gap: 20px;
+    display: flex !important;
+    flex-direction: row;
 }
 
 .navbar-toggler {
@@ -87,6 +87,11 @@ body.theme-redblack {
 
 /* Mobile navbar solid bar */
 @media (max-width: 768px) {
+   .navbar-nav {
+      gap: 10px;
+      font-size: 14px;
+      padding-right: 5px;
+  }
   .site-header { display: block; }
   .custom-nav {
     background: #000 !important;
