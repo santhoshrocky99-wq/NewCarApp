@@ -22,6 +22,13 @@ body.theme-redblack {
   top:0;
   z-index:1000;
 }
+.site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
 .hero-section .hero-left {
     text-align: left !important;
     margin-left: 60px !important; /* adjust until aligned to logo */
