@@ -12,38 +12,37 @@
 
 <body class="theme-redblack">
 
-<header class="site-header">
- <div class="logo-wrap">
+<header class="site-header d-flex align-items-center justify-content-between" style="padding: 15px 20px;">
+
+  <!-- LEFT: LOGO -->
+  <div class="logo-wrap">
     <a href="/">
       <img src="~/images/logo.png" alt="Car Cleanz Logo" class="logo-img" />
     </a>
   </div>
 
-<nav class="navbar navbar-expand-lg navbar-dark custom-nav">
-  <div class="container-fluid">
+  <!-- RIGHT: NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark custom-nav">
+    <div class="container-fluid">
 
-  <!--  <a class="navbar-brand" href="/">
-      <img src="~/images/logo.png" alt="Car Cleanz Logo" class="logo-img" />
-    </a>-->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+      <div class="collapse navbar-collapse justify-content-end" id="mainNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/Booking/Create">Book</a></li>
+          <li class="nav-item"><a class="nav-link" href="/Admin/Index">Admin</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+      </div>
 
-    <div class="collapse navbar-collapse justify-content-end" id="mainNav">
-      <ul class="navbar-nav">
-        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="/Booking/Create">Book</a></li>
-        <li class="nav-item"><a class="nav-link" href="/Admin/Index">Admin</a></li>
-        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-      </ul>
     </div>
-
-  </div>
-</nav>
-
+  </nav>
 
 </header>
+
 
 <main class="container">
     @RenderBody()
