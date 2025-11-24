@@ -50,7 +50,7 @@ body.theme-redblack {
 
 .logo-wrap img.logo-img {
   height: 70px;
-  width: auto;
+  width: 150px;
   transition: transform 0.3s ease;
 }
 .logo-wrap img.logo-img:hover {
